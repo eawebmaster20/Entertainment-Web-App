@@ -1,0 +1,31 @@
+@use '../../../_partials/variables' as *;
+@use '../../../_partials/mixins' as *;
+
+.container {
+    @include container-style;
+  
+    .form-container {
+      @include form-container-style;
+        
+      .form {
+        @include form-style;
+  
+        .input-fields {
+          @include input-fields-style;
+  
+          input {
+            @include input-style;
+          }
+        }
+  
+        .action-btn {
+          @include action-btn-style;
+        }
+  
+        .switch-auth {
+          @include switch-auth-style;
+        }
+      }
+    }
+  }
+  
