@@ -1,0 +1,62 @@
+@use './variables' as *;
+
+@mixin base-container-style{
+    background-color: #10141E;
+    height: 100%;
+    color: #ffffff;
+}
+@mixin container-style {
+    display: grid;
+    place-items: center;
+    padding: 0 1.5rem;
+    gap: 58px;
+    align-content: center;
+    @include base-container-style
+}
+
+@mixin form-container-style {
+  background-color: $clr-gray-light;
+  width: 100%;
+  max-width: 432px;
+}
+
+@mixin form-style {
+  margin: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+@mixin input-fields-style {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+@mixin input-style {
+  color: $clr-txt-primary;
+  background: transparent;
+  outline: none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  padding: 1rem;
+}
+
+@mixin action-btn-style {
+  color: $clr-txt-primary;
+  background-color: $clr-accent;
+  padding: 1.5rem 0;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
+
+@mixin switch-auth-style {
+    text-align: center;
+  a {
+    color: $clr-accent;
+  }
+}
