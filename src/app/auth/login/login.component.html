@@ -6,12 +6,12 @@
                 Login
             </h1>
             <div class="input-fields">
-                <input type="texttext" placeholder="Email Address">
-                <input type="texttext" placeholder="password">
+                <input [(ngModel)]="userCredentials.username" type="texttext" placeholder="Email Address">
+                <input [(ngModel)]="userCredentials.password" type="texttext" placeholder="password">
             </div>
-            <button mat-button class="action-btn">Login to your account</button>
+            <button (click)="testDb()" mat-button class="action-btn">Login to your account</button>
             <span class="switch-auth">
-                Don't have an account? <a>Sign up</a>
+                Don't have an account? <a routerLink="/signup">Sign up</a>
             </span>
         </div>
     </div>
