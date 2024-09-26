@@ -1,42 +1,33 @@
-<div class="container">
-    <section class="search">
-        <div class="input-group">
-            <img src="../../../assets/icons/icon-search.svg" alt="" srcset="">
-            <input type="text" class="form-control" placeholder="Search for movies or TV shows, or actors">
-        </div>
-    </section>
-    <section class="trending">
-        <h2 class="trending-title">Trending</h2>
-        <div class="trending-carousel">
-            @for (item of [1,2,3,4,5,6,7,8,9]; track $index) {
-                <div class="trending-card">
-                    <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                    <div class="card-info">
-                        <div class="row mt-1 mrl-1">
-                            <button mat-icon-button class="bookmark-icon">
-                                <svg width="12" [class]="bookmarked?'bookmarked':'not-bookmarked'" height="14" xmlns="http://www.w3.org/2000/svg"><path d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z" stroke="#FFF" stroke-width="1.5"/></svg>
-                            </button>
-                        </div>
-                        <div class="mt-auto mrl-1">
-                            <div class="row font-gray info-txt-gap mb-0">
-                                <span class="movie-year">2019 </span>
-                                <div class="separator"></div>
-                                <span class="movie-category">
-                                    <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10.173 0H1.827A1.827 1.827 0 0 0 0 1.827v8.346C0 11.183.818 12 1.827 12h8.346A1.827 1.827 0 0 0 12 10.173V1.827A1.827 1.827 0 0 0 10.173 0ZM2.4 5.4H1.2V4.2h1.2v1.2ZM1.2 6.6h1.2v1.2H1.2V6.6Zm9.6-1.2H9.6V4.2h1.2v1.2ZM9.6 6.6h1.2v1.2H9.6V6.6Zm1.2-4.956V2.4H9.6V1.2h.756a.444.444 0 0 1 .444.444ZM1.644 1.2H2.4v1.2H1.2v-.756a.444.444 0 0 1 .444-.444ZM1.2 10.356V9.6h1.2v1.2h-.756a.444.444 0 0 1-.444-.444Zm9.6 0a.444.444 0 0 1-.444.444H9.6V9.6h1.2v.756Z" fill="#FFF" opacity=".75"/>
-                                    </svg>
-                                    Movie
-                                </span>
-                                <span class="movie-class">PG</span>
-                            </div>
-                            <div class="">
-                                <span class="movie-title">Beyond Earth </span>
-                            </div>
+<div class="recommended-container">
+    <span class="heading">Recommended for you</span>
+    <div class="fyp-list">
+        @for (movie of store.select(selectAll)|async | filter:dataService.selectedCategory:dataService.searchString; track $index) {
+            <div class="fyp-wrapper">
+                <div class="recommended-item">
+                    <img [src]="movie.thumbnail.regular.small" [alt]="movie.category" class="image">
+                    <div  [class]="movie.isBookmarked? 'bookmarked':'not-bookmarked'" (click)="dataService.toggleBookmarked(movie)" class="bookmark-wrapper">
+                        <svg width="12" height="14" xmlns="http://www.w3.org/2000/svg"><path d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z" stroke="#FFF" stroke-width="1.5"/></svg>
+                    </div>
+                    <div class="dark-bg">
+                        <div class="play-btn">
+                            <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg"><path d="M15 0C6.713 0 0 6.713 0 15c0 8.288 6.713 15 15 15 8.288 0 15-6.712 15-15 0-8.287-6.712-15-15-15Zm-3 21V8l9 6.5-9 6.5Z" fill="#FFF"/></svg>
+                            <span>Play</span>
                         </div>
                     </div>
                 </div>
-            }
-        </div>
-    </section>
-    <section class="recommended"></section>
+                
+                <div class="fyp-info">
+                    <div class="fyp-rating">
+                            <span>{{ movie.year }}</span>
+                            <div class="circle"></div>
+                            <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M16.956 0H3.044A3.044 3.044 0 0 0 0 3.044v13.912A3.044 3.044 0 0 0 3.044 20h13.912A3.044 3.044 0 0 0 20 16.956V3.044A3.044 3.044 0 0 0 16.956 0ZM4 9H2V7h2v2Zm-2 2h2v2H2v-2Zm16-2h-2V7h2v2Zm-2 2h2v2h-2v-2Zm2-8.26V4h-2V2h1.26a.74.74 0 0 1 .74.74ZM2.74 2H4v2H2V2.74A.74.74 0 0 1 2.74 2ZM2 17.26V16h2v2H2.74a.74.74 0 0 1-.74-.74Zm16 0a.74.74 0 0 1-.74.74H16v-2h2v1.26Z" fill="#5A698F"/></svg>
+                            <span>{{  movie.category }}</span>
+                            <div class="circle"></div>
+                            <span>{{ movie.rating }}</span>
+                        </div>
+                        <span class="fyp-name">{{ movie.title }}</span>
+                </div>
+            </div>
+        }
+    </div>
 </div>
