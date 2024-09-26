@@ -1,0 +1,34 @@
+@import '../../../_partials/variables';
+@media only screen and (min-width: 1028px){
+    .parent{
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        grid-template-rows: 1fr;
+        height: 100vh;
+        overflow-y: scroll;
+    }
+    .div1 { 
+        grid-area: 1 / 1 / 2 / 2; 
+        display: flex;
+        justify-content: center;
+        margin: 1rem 0;
+    }
+    .div2 { 
+        grid-area: 1 / 2 / 2 / 3; 
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        
+        .search-bar{
+            position: fixed;
+            z-index: 5;
+            width: 100%;
+            background-color: $dark-blue;
+        }
+
+        app-movie-listings{
+            margin-top: 6rem;
+        }
+    }
+}
