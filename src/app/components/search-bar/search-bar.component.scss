@@ -1,0 +1,73 @@
+@import '../../../_partials/variables' ;
+@import '../../../_partials/newmixins';
+
+div.searh-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 30px;
+    margin-bottom: 34px;
+
+    input.search-input {
+        @include SearchInputEmpty;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 0;
+        // margin-right: 36px;
+        outline: none;
+    }
+    input.search-input:focus {
+        @include SearchInputActive;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 0;
+        // margin-right: 36px;
+        outline: none;
+        
+    }
+}
+
+// Media Queries
+@media screen and (max-width: 768px) {
+    div.searh-container {
+        // margin-top: 82px;
+        margin-bottom: 24px;
+
+        svg {
+            // padding-top: 3px;
+            // path {
+            //     scale: .7;
+            // }
+        }
+    
+        input.search-input {
+            // font-size: px-to-rem(16);
+
+        }
+        input.search-input:focus {
+            // font-size: px-to-rem(16);
+        }  
+    }
+}
+
+@media screen and (max-width: 430px) {
+    div.searh-container {
+        margin-top: 82px;
+        margin-bottom: 24px;
+
+        svg {
+            padding-top: 3px;
+            path {
+                scale: .7;
+            }
+        }
+    
+        input.search-input {
+            font-size: px-to-rem(16);
+
+        }
+        input.search-input:focus {
+            font-size: px-to-rem(16);
+        }  
+    }
+}
