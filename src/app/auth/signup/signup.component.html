@@ -6,13 +6,13 @@
                 Sign Up
             </h1>
             <div class="input-fields">
-                <input type="texttext" placeholder="Email Address">
-                <input type="texttext" placeholder="Password">
+                <input [(ngModel)]="userCredentials.username" type="texttext" placeholder="Email Address">
+                <input [(ngModel)]="userCredentials.password" type="texttext" placeholder="Password">
                 <input type="texttext" placeholder=" Repeat Password">
             </div>
-            <button mat-button class="action-btn">Create an account</button>
+            <button (click)="register()" mat-button class="action-btn">Create an account</button>
             <span class="switch-auth">
-                Already have an account? <a>Login</a>
+                Already have an account? <a routerLink="/login">Login</a>
             </span>
         </div>
     </div>
