@@ -1,0 +1,181 @@
+@import './variables';
+@import './functions';
+
+
+
+@mixin HeadingL() {
+    font-size: px-to-rem(32);
+    color: $pure-white;
+    font-weight: 300;
+}
+
+@mixin HeadingM() {
+    font-size: px-to-rem(24);
+    color: $pure-white;
+    font-weight: 300;
+}
+
+@mixin HeadingS() {
+    font-size: px-to-rem(24);
+    color: $pure-white;
+    font-weight: 700;
+}
+
+@mixin HeadingXS() {
+    font-size: px-to-rem(18);
+    color: $pure-white;
+    font-weight: 500;
+}
+
+@mixin BodyM () {
+    font-size: px-to-rem(15);
+    color: $pure-white;
+    font-weight: 300;
+}
+
+@mixin BodyS () {
+    font-size: px-to-rem(13);
+    color: $pure-white;
+    font-weight: 300;
+}
+
+
+// Interactive elements mixins
+// Buttons
+@mixin ButtonIdle() {
+    @include BodyM;
+    width: 336px;
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    background: $red;
+    color: $pure-white;
+    margin-bottom: 24px;
+    cursor: pointer;
+    transition: $btn-transition;
+}
+
+@mixin ButtonHover() {
+    @include BodyM;
+    width: 336px;
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    background: $pure-white;
+    color: $semi-dark-blue;
+    cursor: pointer;
+    transition: $btn-transition;
+}
+
+@mixin PlayButton() {
+    @include HeadingXS;
+    width: 117px;
+    height: 48px;
+    border-radius: 28.5px;
+    padding: 0 9px;
+    background: $pure-white-transparent;
+    display: flex;
+    align-items: center;
+    gap: 19px;
+    cursor: pointer;
+}
+
+@mixin PlayButtonHovered() {
+    svg {
+        path {
+            fill: $pure-white;
+        }
+    }
+    span {
+        color: $pure-white;
+    }
+}
+
+@mixin PlayButtonIdle() {
+    svg {
+        path {
+            fill: transparent;
+        }
+    }
+    span {
+        color: transparent;
+    }
+}
+
+//Inputs-form
+@mixin InputEmpty() {
+    @include BodyM;
+    width: 336px;
+    height: 37px;
+    outline: none;
+    // outline-bottom: 1px solid transparent;
+    border: none;
+    border-bottom: $border-empty;
+    padding: 5px 16px 32px 16px;
+    caret-color: $red;
+    background: transparent;
+    margin-bottom: 24px;
+    transition: $input-transition;
+    
+}
+
+@mixin InputActive() {
+    width: 336px;
+    height: 37px;
+    outline: none;
+    border: none;
+    border-bottom: $border-active;
+    padding: 5px 16px 32px 16px;
+    caret-color: $red;
+    background: transparent;
+    margin-bottom: 24px;
+    transition: $input-transition;
+}
+
+@mixin InputError() {
+    width: 336px;
+    height: 37px;
+    outline: none;
+    border: none;
+    border-bottom: $border-error;
+    padding: 5px 16px 32px 16px;
+    caret-color: $red;
+    background: transparent;
+    margin-bottom: 24px;
+}
+
+@mixin SearchInputEmpty() {
+    @include HeadingM;
+    width: 336px;
+    height: 37px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid transparent;
+    padding: 5px 16px 32px 16px;
+    caret-color: $red;
+    background: transparent;
+    margin-bottom: 24px;
+    transition: $input-transition;
+}
+
+@mixin SearchInputActive() {
+    @include HeadingM;
+    width: 336px;
+    height: 37px;
+    outline: none;
+    border: none;
+    border-bottom: $border-empty;
+    padding: 5px 16px 32px 16px;
+    caret-color: $red;
+    background: transparent;
+    margin-bottom: 24px;
+    transition: $input-transition;
+}
+
+@mixin dot() {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: $pure-white;
+    opacity: .5;
+}

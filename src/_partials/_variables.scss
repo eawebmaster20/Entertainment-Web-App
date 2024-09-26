@@ -1,6 +1,22 @@
-$clr-txt-primary: #ffffff;
-$clr-accent:#FC4747;
-$clr-ico:#5A698F;
-$clr-gray-light:#161D2F;
-$clr-gray-dark:#10141E;
-$clr-gray-seperator: #979797
+
+// Colour variables
+$red: #fc4747;
+$dark-blue: #10141e;
+$dark-blue-transparency: rgba(16, 20, 30, .5);
+$greyish-blue: #54698f;
+$semi-dark-blue: #161d2f;
+$pure-white: #ffffff;
+$pure-white-transparent: rgba(255, 255, 255, .3);
+
+
+// Font variables
+$fontOut: "Outfit", sans-serif;
+
+// Border variables
+$border-empty : 1px solid $greyish-blue;
+$border-active : 2px solid $pure-white;
+$border-error : 1px solid $red;
+
+// Button transition variables
+$btn-transition: .2s ease-in-out;
+$input-transition: .1s ease-in-out;

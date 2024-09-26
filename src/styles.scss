@@ -47,9 +47,20 @@ html, body {
     height: 100vh;
     overflow:hidden;
     font-family: "Outfit", sans-serif;
-    @include base-container-style;
+    background: $dark-blue;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    
+    html {
+      scrollbar-width: none;
+    }
+
 }
 
+h1, h2, h3, h4, h5, h6{
+  margin: 0;
+}
 .mat-icon.mat-accent {
   --mat-icon-color: #FC4747;
 }

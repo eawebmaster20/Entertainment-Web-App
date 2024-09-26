@@ -15,7 +15,7 @@
 }
 
 @mixin form-container-style {
-  background-color: $clr-gray-light;
+  background-color: $semi-dark-blue;
   width: 100%;
   max-width: 432px;
 }
@@ -36,7 +36,7 @@
 }
 
 @mixin input-style {
-  color: $clr-txt-primary;
+  color: $pure-white;
   background: transparent;
   outline: none;
   border-top: none;
@@ -46,8 +46,8 @@
 }
 
 @mixin action-btn-style {
-  color: $clr-txt-primary;
-  background-color: $clr-accent;
+  color: $pure-white;
+  background-color: $red;
   padding: 1.5rem 0;
   border: none;
   border-radius: 6px;
@@ -57,6 +57,6 @@
 @mixin switch-auth-style {
     text-align: center;
   a {
-    color: $clr-accent;
+    color: $red;
   }
 }
