@@ -24,7 +24,11 @@ export class DataService {
       localStorage.removeItem('tempMovie');
       deepCopy.isBookmarked= !deepCopy.isBookmarked
       this.store.dispatch(updateMovie({id:param.id, changes:deepCopy}));
-      userBookmarkList.favoriteMovies=[...userBookmarkList.favoriteMovies,param.id];
+      if (userBookmarkList.favoriteMovies.includes(param.id)) {
+        userBookmarkList.favoriteMovies = userBookmarkList.favoriteMovies.filter(f => f !== param.id)
+      } else {
+        userBookmarkList.favoriteMovies=[...userBookmarkList.favoriteMovies,param.id];
+      }
       localStorage.setItem('user', JSON.stringify(userBookmarkList))
       return
     }
