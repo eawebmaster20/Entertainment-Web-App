@@ -42,10 +42,13 @@ export class LoginComponent {
         }
       })
   }
-  testDb(){
-    this.index.createIndexDbDatabase()
+  createDb(){
+    this.index.createIndexDbDatabase('users', 'userTable')
   }
-
+  addUser(){
+    let user = { email: "john@example.com", favoriteMovies: ["Inception", "The Matrix"] }
+    this.index.addUser(user)
+  }
   getMovies(){
     this.apiService.getMovies()
      .pipe(map(movies => movies))
