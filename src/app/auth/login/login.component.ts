@@ -4,7 +4,6 @@ import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { map } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
-import { IndexdbService } from '../../shared/services/indexDb/indexdb.service';
 import { ApiService } from '../../shared/services/api/api.service';
 import { ILogHttpLoginRes } from '../../shared/models/http.interface';
 
@@ -16,13 +15,11 @@ import { ILogHttpLoginRes } from '../../shared/models/http.interface';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  apiUrl = 'http://localhost:5000/api';
   userCredentials = {
-    username: '',
+    email: '',
     password: ''
   }
   constructor(
-    private index: IndexdbService, 
     private router:Router,
     private apiService: ApiService
   ) {}
@@ -31,34 +28,39 @@ export class LoginComponent {
     this.apiService.login(this.userCredentials)
       .subscribe({
         next: (user:ILogHttpLoginRes) => {
+          console.log(user);
           if (user && user.token) {
-            localStorage.setItem('jwtToken', JSON.stringify(user));
-            this.router.navigate(['/movies'])
+            this.createUser(this.userCredentials.email, user.token)
+            console.log('Logged in successfully', user);
           }
-          console.log('Logged in successfully', user);
         },
         error: (error) => {
           console.error('Error logging in', error);
         }
       })
   }
-  createDb(){
-    this.index.createIndexDbDatabase('users', 'userTable')
+  createUser(userEmail:string, token:string){
+    try {
+      localStorage.setItem('user', JSON.stringify({email: userEmail, authToken:token, favoriteMovies:[]}))
+      this.navigateTo('')
+    } catch (error) {
+      throw error
+    }
   }
-  addUser(){
-    let user = { email: "john@example.com", favoriteMovies: ["Inception", "The Matrix"] }
-    this.index.addUser(user)
+
+  navigateTo(url:string ){
+    this.router.navigate([`${url}`])
   }
-  getMovies(){
-    this.apiService.getMovies()
-     .pipe(map(movies => movies))
-     .subscribe({
-        next: (movies) => {
-          console.log('Movies:', movies);
-        },
-        error: (error) => {
-          console.error('Error getting movies', error);
-        }
-      })
-  }
+  // getMovies(){
+  //   this.apiService.getMovies()
+  //    .pipe(map(movies => movies))
+  //    .subscribe({
+  //       next: (movies) => {
+  //         console.log('Movies:', movies);
+  //       },
+  //       error: (error) => {
+  //         console.error('Error getting movies', error);
+  //       }
+  //     })
+  // }
 }

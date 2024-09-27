@@ -7,12 +7,15 @@ import { ApiService } from '../services/api/api.service';
 import { v4 as uuidv4 } from 'uuid'
 import { Store } from '@ngrx/store';
 import { IMovie } from '../models/movie.interface';
+import { ILocalStorageUser } from '../models/localStorageUser';
+import { DataService } from '../services/data/data.service';
 @Injectable()
 export class BoardEffects {
 
   constructor(
     private actions: Actions,
     private storeService: ApiService,
+    private dataService: DataService,
     private store: Store
   ) {}
 
@@ -28,16 +31,25 @@ export class BoardEffects {
           return of(BoardActions.fetchMoviesSuccess({movies}));
         } else {
           return this.storeService.getMovies().pipe(
-            // map(res => res.map(board=> ({
-            //   ...board,
-            //   id: uuidv4()
-            // }))), 
             tap((movies: IMovie[]) => {
               console.log('loading from api')
               localStorage.setItem('movies', JSON.stringify(movies));
             }),
             map((movies: IMovie[]) => 
-              BoardActions.fetchMoviesSuccess({ movies })
+              {
+                if(localStorage.getItem('user')){
+                  let user = JSON.parse(localStorage.getItem('user')!) as ILocalStorageUser;
+                  if (user.authToken.length) {
+                    this.dataService.userAuthenticated = true;
+                    user.favoriteMovies.forEach(id => {
+                      const movie = movies.find(movie => movie.id === id);
+                      if(movie) movie.isBookmarked = true;
+                    });
+                  }
+                }
+                console.log(movies);
+               return BoardActions.fetchMoviesSuccess({ movies })
+              }
             ),
             catchError((error) =>
               of(BoardActions.fetchMoviesFailure())

@@ -40,8 +40,6 @@
 }
 
 
-// Interactive elements mixins
-// Buttons
 @mixin ButtonIdle() {
     @include BodyM;
     width: 336px;

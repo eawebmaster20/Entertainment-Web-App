@@ -12,16 +12,17 @@ import { DataService } from '../../shared/services/data/data.service';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit{
-  constructor(private dataService: DataService){}
+  constructor(public dataService: DataService){}
   isActive(param:string):boolean {
     return this.dataService.selectedCategory === param
   }
 
   setCategory(param:string):void {
     this.dataService.selectedCategory = param;
+    this.dataService.searchPlaceholder = param
   }
 
   ngOnInit(): void {
-    this.setCategory('all')
+    this.setCategory('movies or TV series')
   }
 }

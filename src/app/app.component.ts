@@ -15,11 +15,5 @@ import { fetchMovies } from './shared/state/board.actions';
 export class AppComponent implements OnInit {
   constructor(private api:ApiService, private dataService:DataService, private store:Store){}
   ngOnInit(): void {
-    this.store.dispatch(fetchMovies());
-    // this.store.dispatch(fetchDataAction())
-    // this.api.getMovies().subscribe({
-    //   next: (movies) => this.dataService.movies.next(movies),
-    //   error: (error) => console.error('Error fetching movies:', error)
-    // });
   }
 }

@@ -3,7 +3,10 @@
 
 .container {
     @include container-style;
-  
+    .row{
+      display: flex;
+      justify-content: center;
+    }
     .form-container {
       @include form-container-style;
   

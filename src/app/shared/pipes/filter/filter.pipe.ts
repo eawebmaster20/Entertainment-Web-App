@@ -11,7 +11,7 @@ export class FilterPipe implements PipeTransform {
   transform(data:IMovie[]|null,category:string,searchStr:string) {
     let returnVal:IMovie[] = [];
     switch (category) {
-      case 'all':
+      case 'movies or TV series':
         returnVal = data?.filter((item) => item.title.toLowerCase().includes(searchStr.toLowerCase())) || [];
         console.log(returnVal, searchStr);
         break;

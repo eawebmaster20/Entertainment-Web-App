@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { DataService } from '../../shared/services/data/data.service';
 import { selectAllMovies } from '../../shared/state/board.selectors';
 import { AsyncPipe } from '@angular/common';
-import { IMovie } from '../../shared/models/movie.interface';
-import { take } from 'rxjs';
-import { updateMovie } from '../../shared/state/board.actions';
+import { ILocalStorageUser } from '../../shared/models/localStorageUser';
+import { Router } from '@angular/router';
+import { fetchMovies } from '../../shared/state/board.actions';
 
 @Component({
   selector: 'app-movie-listings',
@@ -18,8 +18,16 @@ import { updateMovie } from '../../shared/state/board.actions';
 export class MovieListingsComponent implements OnInit {
   
   selectAll = selectAllMovies
- constructor(public store:Store, public dataService:DataService){}
+ constructor(public store:Store, public dataService:DataService, private router:Router){}
 
  
- ngOnInit(): void {  }
+ ngOnInit(): void { 
+  let persistantUser = localStorage.getItem('user')
+  if(persistantUser){
+    let parsedUser = JSON.parse(persistantUser) as ILocalStorageUser
+    parsedUser.authToken.length 
+    ? this.dataService.userAuthenticated = true
+    : this.dataService.userAuthenticated = false
+  }
+  }
 }
