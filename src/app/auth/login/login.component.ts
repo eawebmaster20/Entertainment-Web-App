@@ -2,17 +2,19 @@ import { Component } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
-import { map } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../shared/services/api/api.service';
 import { ILogHttpLoginRes } from '../../shared/models/http.interface';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, FormsModule, RouterLink],
+  imports: [MatButtonModule, MatIconModule, FormsModule, RouterLink, ToastModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  providers: [MessageService]
 })
 export class LoginComponent {
   userCredentials = {
@@ -21,7 +23,8 @@ export class LoginComponent {
   }
   constructor(
     private router:Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private messageService: MessageService
   ) {}
   login(){
     console.log(this.userCredentials);
@@ -30,6 +33,7 @@ export class LoginComponent {
         next: (user:ILogHttpLoginRes) => {
           console.log(user);
           if (user && user.token) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Successfully logged in' });
             this.createUser(this.userCredentials.email, user.token)
             console.log('Logged in successfully', user);
           }

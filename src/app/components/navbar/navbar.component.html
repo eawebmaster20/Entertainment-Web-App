@@ -18,7 +18,7 @@
         @if (dataService.userAuthenticated) {
             <div class="profile-img"></div>
         }@else {
-            <button mat-icon-button style="color: white; margin-top: auto;">
+            <button routerLink="/login" mat-icon-button style="color: white; margin-top: auto;">
                 <mat-icon>login</mat-icon>
             </button>
         }
