@@ -1,6 +1,12 @@
 <div class="recommended-container">
-    @if (dataService.selectedCategory==='movies or TV series') {
+    @if (dataService.selectedCategory==='movies or TV series'&&dataService.searchString.length ===0) {
         <span class="heading">Recommended for you</span>
+    }@if (dataService.searchString.length>0) {
+        <span class="heading">
+            Found
+            {{ (store.select(selectAll)|async | filter:dataService.selectedCategory:dataService.searchString).length}}
+            results for 
+           '{{dataService.searchString}}'</span>
     }@else {
         <span class="heading">{{dataService.selectedCategory}}</span>
     }
