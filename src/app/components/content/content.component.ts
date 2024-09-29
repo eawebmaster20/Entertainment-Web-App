@@ -7,8 +7,7 @@ import { selectAllMovies } from '../../shared/state/board.selectors';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { DataService } from '../../shared/services/data/data.service';
 import { FormsModule } from '@angular/forms';
-import { ILocalStorageUser } from '../../shared/models/localStorageUser';
-import { fetchMovies, updateMovie } from '../../shared/state/board.actions';
+import { fetchMovies } from '../../shared/state/board.actions';
 
 @Component({
   selector: 'app-content',
@@ -27,15 +26,5 @@ export class ContentComponent implements OnInit {
 
   ngOnInit(): void {
    this.store.dispatch(fetchMovies());
-    // if(localStorage.getItem('user')){
-    //   let user = JSON.parse(localStorage.getItem('user')!) as ILocalStorageUser;
-    //   if (user.authToken.length) {
-    //     this.dataService.userAuthenticated = true;
-    //     user.favoriteMovies.forEach(id => {
-    //       console.log(id)
-    //       this.store.dispatch(updateMovie({id:id, changes:{isBookmarked:true}}))
-    //     });
-    //   }
-    // }
   }
 }

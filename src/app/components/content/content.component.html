@@ -39,12 +39,25 @@
                 </div>
             </div>
         }
-        @empty {
+        <!-- @empty {
             @if (dataService.selectedCategory !=='Bookmarked') {
                 <div class="empty-list">
                     <span class="loader"></span>
                 </div>
             }
-        }
+            
+        } -->
     </div>
+    @for (movie of store.select(selectAll)|async | filter:dataService.selectedCategory:dataService.searchString; track $index) {}
+        
+    @empty {
+        @if (dataService.isLoading) {
+            <div class="loading-spinner">
+                <span class="loader"></span>
+            </div>
+        }
+        @else {
+            <div class="empty-list"></div>
+        }
+    }
 </div>
