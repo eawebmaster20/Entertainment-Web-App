@@ -7,13 +7,14 @@ import { Router } from '@angular/router';
 import { ILocalStorageUser } from '../../models/localStorageUser';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
   searchString:string='';
   searchPlaceholder:string='Search for movies or TV series';
   selectedCategory:string ='';
   userAuthenticated:boolean = false;
+  isLoading:boolean = false;
   constructor(private store:Store, private router: Router) { }
 
   toggleBookmarked(param:IMovie){

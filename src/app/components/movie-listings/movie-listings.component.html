@@ -33,11 +33,14 @@
                     </div> 
                 }
             }
-            @empty {
-                <div class="empty-list">
+        </div>
+        @for (item of (store.select(selectAll)|async) ; track $index) {}
+        @empty {
+            @if (dataService.isLoading) {
+                <div class="loading-spinner">
                     <span class="loader"></span>
                 </div>
             }
-        </div>
+        }
     </div>
 }
