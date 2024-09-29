@@ -19,9 +19,10 @@ import { RippleModule } from 'primeng/ripple';
   providers: [MessageService]
 })
 export class SignupComponent {
-  userCredentials:IUser = {
+  userCredentials = {
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   }
   constructor(private apiService:ApiService, private router:Router,private messageService: MessageService){}
   register() {
@@ -35,5 +36,14 @@ export class SignupComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error occured'+error.message });
         console.error(error)}
     })
+  }
+
+  shouldDisable(emailField:any, passwordField:any, confirmPasswordField:any){
+    return !(
+      emailField.valid 
+      && passwordField.valid 
+      && confirmPasswordField.valid
+      && passwordField.value === confirmPasswordField.value
+    );
   }
 }
