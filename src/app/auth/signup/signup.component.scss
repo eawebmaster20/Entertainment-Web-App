@@ -15,9 +15,24 @@
   
         .input-fields {
           @include input-fields-style;
-  
-          input {
-            @include input-style;
+          .input-group{
+            position: relative;
+            display: flex;
+            input {
+              width: 100%;
+              @include input-style;
+            }
+            input:focus{
+              border-bottom: 2px solid $pure-white;
+            }
+            .error{
+              position: absolute;
+              right: 0;
+              bottom: 10px;
+              font-size: small;
+              color: $red;
+              z-index: 2;
+            }
           }
         }
   

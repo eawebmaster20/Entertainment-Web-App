@@ -8,10 +8,34 @@
                 Login
             </h1>
             <div class="input-fields">
-                <input [(ngModel)]="userCredentials.email" type="texttext" placeholder="Email Address">
-                <input [(ngModel)]="userCredentials.password" type="texttext" placeholder="password">
+                <div class="input-group">
+                    <input #email="ngModel" [(ngModel)]="userCredentials.email" type="email" email="true" required="true" placeholder="Email Address">
+                    @if (email.touched && email.errors?.['required']) {
+                        <span class="error">Can't be empty</span>
+                    }
+                    @if (email.dirty && email.errors?.['email']){
+                        <span class="error">Not a valid Email</span>
+                    }
+                </div>
+                <div class="input-group">
+                    <input 
+                    #password="ngModel" 
+                    required
+                    minlength="5"
+                    [(ngModel)]="userCredentials.password" 
+                    type="password" 
+                    placeholder="password">
+                    @if (password.touched && password.errors?.['required']){
+                        <span class="error">Can't be empty</span>
+                    }
+                    @if (password.touched && password.value.length >0 && password.errors?.['minlength']) {
+                        @if (password.value.length< 5) {
+                            <span class="error">Can't be less than 5 characters</span>
+                        }
+                    }
+                </div>
             </div>
-            <button (click)="login()" mat-button class="action-btn">Login to your account</button>
+            <button (click)="login()" [disabled]="!(email.valid && password.valid)" mat-button class="action-btn">Login to your account</button>
             <span class="switch-auth">
                 Don't have an account? <a routerLink="/signup">Sign up</a>
             </span>

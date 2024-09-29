@@ -8,11 +8,54 @@
                 Sign Up
             </h1>
             <div class="input-fields">
-                <input [(ngModel)]="userCredentials.email" type="texttext" placeholder="Email Address">
-                <input [(ngModel)]="userCredentials.password" type="texttext" placeholder="Password">
-                <input type="texttext" placeholder=" Repeat Password">
+                <div class="input-group">
+                    <input #email="ngModel" [(ngModel)]="userCredentials.email" type="email" email="true" required="true" placeholder="Email Address">
+                    @if (email.touched && email.errors?.['required']) {
+                        <span class="error">Can't be empty</span>
+                    }
+                    @if (email.dirty && email.errors?.['email']){
+                        <span class="error">Not a valid Email</span>
+                    }
+                </div>
+                <div class="input-group">
+                    <input 
+                    #password="ngModel" 
+                    required
+                    minlength="5"
+                    [(ngModel)]="userCredentials.password" 
+                    type="password" 
+                    placeholder="password">
+                    @if (password.touched && password.errors?.['required']){
+                        <span class="error">Can't be empty</span>
+                    }
+                    @if (password.touched && password.value.length >0 && password.errors?.['minlength']) {
+                        @if (password.value.length< 5) {
+                            <span class="error">Can't be less than 5 characters</span>
+                        }
+                    }
+                </div>
+                <div class="input-group">
+                    <input 
+                    #confirmPassword="ngModel" 
+                    required
+                    minlength="5"
+                    [(ngModel)]="userCredentials.confirmPassword" 
+                    type="password" 
+                    placeholder="Repeat Password">
+                    @if (confirmPassword.touched && confirmPassword.errors?.['required']){
+                        <span class="error">Can't be empty</span>
+                    }
+                    @if (confirmPassword.touched && confirmPassword.value !== userCredentials.password && !confirmPassword.errors?.['required']){
+                        <span class="error">Passwords don't match</span>
+                    }
+                    @if (confirmPassword.touched && confirmPassword.value.length >0 && password.errors?.['minlength']) {
+                        @if (password.value.length< 5) {
+                            <span class="error">Can't be less than 5 characters</span>
+                        }
+                    }
+                </div>
             </div>
-            <button (click)="register()" mat-button class="action-btn">Create an account</button>
+            <button [disabled]="shouldDisable(email, password, confirmPassword)" (click)="register()" mat-button class="action-btn">Create an account</button>
             <span class="switch-auth">
                 Already have an account? <a routerLink="/login">Login</a>
             </span>
