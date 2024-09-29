@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
@@ -11,7 +11,6 @@ import { ILocalStorageUser } from '../models/localStorageUser';
 import { DataService } from '../services/data/data.service';
 @Injectable()
 export class BoardEffects {
-
   constructor(
     private actions: Actions,
     private storeService: ApiService,
@@ -23,11 +22,13 @@ export class BoardEffects {
     this.actions.pipe(
       ofType(BoardActions.fetchMovies),
       mergeMap(() => {
+        this.dataService.isLoading = true;
         const localStorageBoards = localStorage.getItem('boards');
 
         if (localStorageBoards) {
           const movies: IMovie[] = JSON.parse(localStorageBoards);
           console.log('data exist in localStorage');
+          this.dataService.isLoading = false;
           return of(BoardActions.fetchMoviesSuccess({movies}));
         } else {
           return this.storeService.getMovies().pipe(
@@ -48,11 +49,15 @@ export class BoardEffects {
                   }
                 }
                 console.log(movies);
+                this.dataService.isLoading = false;
                return BoardActions.fetchMoviesSuccess({ movies })
               }
             ),
             catchError((error) =>
-              of(BoardActions.fetchMoviesFailure())
+             {
+               this.dataService.isLoading = false;
+              return of(BoardActions.fetchMoviesFailure())
+             } 
             )
           );
         }
