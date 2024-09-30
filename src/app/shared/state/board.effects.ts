@@ -9,13 +9,15 @@ import { Store } from '@ngrx/store';
 import { IMovie } from '../models/movie.interface';
 import { ILocalStorageUser } from '../models/localStorageUser';
 import { DataService } from '../services/data/data.service';
+import { LocalstorageService } from '../services/localStorage/localstorage.service';
 @Injectable()
 export class BoardEffects {
   constructor(
     private actions: Actions,
     private storeService: ApiService,
     private dataService: DataService,
-    private store: Store
+    private store: Store,
+    private localStorage: LocalstorageService
   ) {}
 
   fetchBoards$ = createEffect(() =>
@@ -23,23 +25,23 @@ export class BoardEffects {
       ofType(BoardActions.fetchMovies),
       mergeMap(() => {
         this.dataService.isLoading = true;
-        const localStorageBoards = localStorage.getItem('boards');
+        const localStorageBoards = this.localStorage.getItem('boards');
 
         if (localStorageBoards) {
           const movies: IMovie[] = JSON.parse(localStorageBoards);
-          console.log('data exist in localStorage');
+          // console.log('data exist in localStorage');
           this.dataService.isLoading = false;
           return of(BoardActions.fetchMoviesSuccess({movies}));
         } else {
           return this.storeService.getMovies().pipe(
             tap((movies: IMovie[]) => {
-              console.log('loading from api')
-              localStorage.setItem('movies', JSON.stringify(movies));
+              // console.log('loading from api')
+              this.localStorage.setItem('movies', movies);
             }),
             map((movies: IMovie[]) => 
               {
-                if(localStorage.getItem('user')){
-                  let user = JSON.parse(localStorage.getItem('user')!) as ILocalStorageUser;
+                if(this.localStorage.getItem('user')){
+                  let user = this.localStorage.getItem('user') as ILocalStorageUser;
                   if (user.authToken.length) {
                     this.dataService.userAuthenticated = true;
                     user.favoriteMovies.forEach(id => {
@@ -48,7 +50,7 @@ export class BoardEffects {
                     });
                   }
                 }
-                console.log(movies);
+                // console.log(movies);
                 this.dataService.isLoading = false;
                return BoardActions.fetchMoviesSuccess({ movies })
               }
