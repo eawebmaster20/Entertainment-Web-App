@@ -10,9 +10,11 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { boardReducer } from './shared/state/board.reducer';
 import { BoardEffects } from './shared/state/board.effects';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    MessageService,
     provideRouter(routes), 
     // provideAnimationsAsync(),
     provideAnimations(),

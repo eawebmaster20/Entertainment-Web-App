@@ -4,7 +4,7 @@ import { ApiService } from './shared/services/api/api.service';
 import { DataService } from './shared/services/data/data.service';
 import { Store } from '@ngrx/store';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +12,17 @@ import { MessageService } from 'primeng/api';
   imports: [RouterOutlet, ToastModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class AppComponent implements OnInit {
-  constructor(private api:ApiService, private dataService:DataService, private store:Store){}
+  constructor(
+    private api:ApiService, 
+    private dataService:DataService, 
+    private store:Store,    
+    private messageService: MessageService,
+    private primengConfig: PrimeNGConfig,
+  ){}
   ngOnInit(): void {
+    this.primengConfig.ripple = true;
   }
 }
