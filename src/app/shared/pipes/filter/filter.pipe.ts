@@ -13,17 +13,17 @@ export class FilterPipe implements PipeTransform {
     switch (category) {
       case 'movies or TV series':
         returnVal = data?.filter((item) => item.title.toLowerCase().includes(searchStr.toLowerCase())) || [];
-        console.log(returnVal, searchStr);
+        // console.log(returnVal, searchStr);
         break;
         
         case 'Bookmarked':
           returnVal = data?.filter((item) => item.isBookmarked && item.title.toLowerCase().includes(searchStr.toLowerCase())) || [];
-          console.log(returnVal, searchStr);
+          // console.log(returnVal, searchStr);
         break;
         
       default:
         returnVal = data?.filter((item) => item.category ===category && item.title.toLowerCase().includes(searchStr.toLowerCase())) || [];
-        console.log(returnVal, searchStr);
+        // console.log(returnVal, searchStr);
         break;
     }
     return returnVal;
