@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { fetchMovies } from '../../shared/state/board.actions';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { NotificationService } from '../../shared/services/notification/notification.service';
+import { LocalstorageService } from '../../shared/services/localStorage/localstorage.service';
 
 @Component({
   selector: 'app-content',
@@ -25,12 +27,28 @@ export class ContentComponent implements OnInit {
   constructor(
     public store:Store, 
     public dataService:DataService,
+    public notification:NotificationService,
+    private localStorage:LocalstorageService,
+    private messageService: MessageService,
+    private primengConfig: PrimeNGConfig,
   ){}
   isBookmarked():boolean{
     return this.bookmarked;
   }
 
   ngOnInit(): void {
+    this.primengConfig.ripple = true;
    this.store.dispatch(fetchMovies());
+  //  this.messageService.add({severity: 'success', summary:'summary',detail: 'msg'})
+  //  this.notification.showSuccess('success', 'wowowowowo')
   }
+  show(addRemove:boolean) {
+    if (this.localStorage.getItem('user')) {
+      if (addRemove) {
+        this.messageService.add({ severity: 'success', summary: 'cool', detail: 'Added to Your bookmarks' });
+        return
+      }
+      this.messageService.add({ severity: 'warn', summary: 'cool', detail: 'removed from Your bookmarks' });
+    }
+}
 }

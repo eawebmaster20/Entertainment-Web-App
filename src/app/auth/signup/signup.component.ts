@@ -24,16 +24,22 @@ export class SignupComponent {
     password: '',
     confirmPassword: ''
   }
+  loading:boolean = false;
   constructor(private apiService:ApiService, private router:Router,private messageService: MessageService){}
   register() {
+    this.loading = true;
     console.log('register');
     this.apiService.register(this.userCredentials).subscribe({
       next: (data) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
-        this.router.navigate(['/login'])
+        setTimeout(() => {
+          this.loading = false;
+          this.router.navigate(['/login'])
+        }, 1500);
       },
       error: (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error occured'+error.message });
+        this.loading = false;
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error occured, sign up failed' });
         console.error(error)}
     })
   }
@@ -46,4 +52,7 @@ export class SignupComponent {
       && passwordField.value === confirmPasswordField.value
     );
   }
+//   show(msg:string, type:string, summary:string) {
+//     this.messageService.add({ severity: type, summary: summary, detail: msg });
+// }
 }

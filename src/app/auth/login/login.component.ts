@@ -44,12 +44,14 @@ export class LoginComponent implements OnInit {
           this.loading=false;
           if (user && user.token) {
             this.createUser(this.userCredentials.email, user.token)
-            this.show('Logged in successfully', 'contrast');
+            this.show('Logged in successfully', 'success', 'success');
+            // this.show('Logged in successfully', 'contrast', 'success');
             console.log('Logged in successfully', user);
           }
         },
         error: (error) => {
           this.loading=false;
+          this.show('Login failed', 'warn', 'Failed');
           console.error('Error logging in', error);
         }
       })
@@ -62,10 +64,12 @@ export class LoginComponent implements OnInit {
       throw error
     }
   }
-  show(msg:string, type:string) {
-    this.messageService.add({ severity: type, summary: 'Success', detail: msg });
+  show(msg:string, type:string, summary:string) {
+    this.messageService.add({ severity: type, summary: summary, detail: msg });
 }
   navigateTo(url:string ){
-    this.router.navigate([`${url}`])
+    setTimeout(() => {
+      this.router.navigate([`${url}`])
+    }, 1500);
   }
 }

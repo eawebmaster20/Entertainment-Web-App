@@ -26,6 +26,7 @@
 @mixin form-container-style {
   background-color: $semi-dark-blue;
   width: 100%;
+  border-radius: 0.5rem;
   max-width: 432px;
 }
 

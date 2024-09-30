@@ -8,6 +8,7 @@ export class NotificationService {
   constructor(private messageService: MessageService) {}
 
   showSuccess(summary: string, detail: string) {
+    console.log(summary + ': ' + detail)
     this.messageService.add({severity: 'success', summary, detail});
   }
 

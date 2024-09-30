@@ -55,10 +55,15 @@
                     }
                 </div>
             </div>
-            <button [disabled]="shouldDisable(email, password, confirmPassword)" (click)="register()" mat-button class="action-btn">Create an account</button>
+            @if (loading) {
+                <span class="action-btn loader"></span>
+            }@else {
+                <button [disabled]="shouldDisable(email, password, confirmPassword)" (click)="register()" mat-button class="action-btn">Create an account</button>
+            }
             <span class="switch-auth">
                 Already have an account? <a routerLink="/login">Login</a>
             </span>
         </div>
     </div>
 </div>
+<p-toast [life]="3000"/>

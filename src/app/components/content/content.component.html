@@ -15,7 +15,10 @@
             <div class="fyp-wrapper">
                 <div class="recommended-item">
                     <img [src]="movie.thumbnail.regular.small" [alt]="movie.category" class="image">
-                    <div  [class]="movie.isBookmarked && dataService.userAuthenticated? 'bookmarked':'not-bookmarked'" (click)="dataService.toggleBookmarked(movie)" class="bookmark-wrapper">
+                    <div  [class]="movie.isBookmarked && dataService.userAuthenticated? 'bookmarked':'not-bookmarked'" 
+                    (click)="dataService.toggleBookmarked(movie)" 
+                    (click)="show(movie.isBookmarked)" 
+                    class="bookmark-wrapper">
                         <svg width="12" height="14" xmlns="http://www.w3.org/2000/svg"><path d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z" stroke="#FFF" stroke-width="1.5"/></svg>
                     </div>
                     <div class="dark-bg">
@@ -39,14 +42,6 @@
                 </div>
             </div>
         }
-        <!-- @empty {
-            @if (dataService.selectedCategory !=='Bookmarked') {
-                <div class="empty-list">
-                    <span class="loader"></span>
-                </div>
-            }
-            
-        } -->
     </div>
     @for (movie of store.select(selectAll)|async | filter:dataService.selectedCategory:dataService.searchString; track $index) {}
         
@@ -61,4 +56,4 @@
         }
     }
 </div>
-<p-toast [life]="30000"/>
+<p-toast [life]="3000"/>
