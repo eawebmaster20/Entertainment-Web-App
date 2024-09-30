@@ -8,18 +8,24 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { DataService } from '../../shared/services/data/data.service';
 import { FormsModule } from '@angular/forms';
 import { fetchMovies } from '../../shared/state/board.actions';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-content',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, FilterPipe, AsyncPipe, FormsModule, CommonModule],
+  imports: [MatCardModule,ToastModule, MatButtonModule, FilterPipe, AsyncPipe, FormsModule, CommonModule],
   templateUrl: './content.component.html',
-  styleUrl: './content.component.scss'
+  styleUrl: './content.component.scss',
+  providers: [MessageService],
 })
 export class ContentComponent implements OnInit {
   bookmarked:boolean = false;
   selectAll = selectAllMovies
-  constructor(public store:Store, public dataService:DataService){}
+  constructor(
+    public store:Store, 
+    public dataService:DataService,
+  ){}
   isBookmarked():boolean{
     return this.bookmarked;
   }
