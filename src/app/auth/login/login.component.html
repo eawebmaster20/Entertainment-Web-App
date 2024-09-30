@@ -35,10 +35,17 @@
                     }
                 </div>
             </div>
-            <button (click)="login()" [disabled]="!(email.valid && password.valid)" mat-button class="action-btn">Login to your account</button>
+            @if (loading) {
+                <span class="action-btn loader"></span>
+            }@else {
+                <button (click)="login()" [disabled]="!(email.valid && password.valid)" mat-button class="action-btn">
+                    Login to your account
+                </button>
+            }
             <span class="switch-auth">
                 Don't have an account? <a routerLink="/signup">Sign up</a>
             </span>
         </div>
     </div>
 </div>
+<p-toast [life]="30000"/>
